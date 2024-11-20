@@ -57,6 +57,14 @@ function goto() {
         local prompt="Goto (Depth: ${depth[@]})> "
     fi
 
+    # Build the exclude paths for find command
+    local find_exclude=()
+    if [ ${#exclude[@]} -ne 0 ]; then
+        for path in "${exclude[@]}"; do
+            find_exclude+=(-path "*/$path" -prune -o)
+        done
+    fi
+
     # Find directory and pipe to fzf
     local dir
     dir=$(find . "${depth[@]}" -type d -iname '*' -print 2>/dev/null \
