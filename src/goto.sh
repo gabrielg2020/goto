@@ -5,10 +5,14 @@ function goto() {
     # Initialize default variables
     local depth=(-maxdepth 5) # Default depth
     local select_option="" # Default select option
-    local exclude_paths=() # Default exclude directories
+    local exclude_paths=( # Default exclude directories
+        "node_modules"
+        ".git"
+        ".github"
+    ) 
 
     # Source config file
-    local config_file="$HOME/.goto"
+    local config_file="$HOME/.goto.conf"
     if [ -f "$config_file" ]; then
         source "$config_file"
     fi
