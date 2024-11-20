@@ -4,6 +4,7 @@
 ## Features
 - Fuzzy Matching: Match directories containing the search pattern anywhere in their names.
 - Interactive Selection: Use `fzf` for real-time, interactive directory selection.
+- Change search depth with `-d` argument.
 
 ## Prerequisites  
 - `fzf`: A general-purpose command-line fuzzy finder.
@@ -43,12 +44,18 @@ source ~/.zshrc     # For Zsh
 
 ## Usage
 >[!WARNING]
->`goto` is slow and doesn't have a search depth. Beware when using, it may take a long time...
+>`goto` is slow. Beware when using, it may take a long time...
 
 ### Basic Command
 ```bash
 goto <pattern>
 ```
+
+### Change search depth
+```bash
+goto -d <max-depth> <pattern>
+```
+`<max-depth>` is set to `5` by default
 
 ### Example
 Lets say you have a project that has a directory structure like this
@@ -86,9 +93,14 @@ goto swizzle
 ```
 - Now in the `swizzle/foo` directory.
 
+#### Search 1 directory deep
+```bash
+goto -d 1 s
+```
+- Lists `sizzle` & `swizzle`
+
 ## Features to be added
 - Speed improvements, most likely with `fd`.
 - Gracefully deal with empty inputs.
 - Exclude directories.
-- Limit search depth.
 - Add base directory argument.
