@@ -92,7 +92,3 @@ goto swizzle
 - Exclude directories.
 - Limit search depth.
 - Add base directory argument.
-- Add customisations with a `~/.goto.conf` file.
-  - Add/Remove excluded directories.
-  - Change search depth.
-  - Change default directory.
