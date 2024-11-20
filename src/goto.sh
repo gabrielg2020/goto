@@ -33,10 +33,18 @@ function goto() {
         select_option="--select-1"
     fi
 
+    # Setup prompt based on depth
+    if [ ${#depth[@]} -eq 0 ]; then
+        local prompt="Goto (Unlimited)> "
+    else 
+        local prompt="Goto (Depth: ${depth[@]})> "
+    fi
+
+
     # Find directory and pipe to fzf
     local dir
     dir=$(find . "${depth[@]}" -type d -iname '*' -print 2>/dev/null \
-        | fzf --query="$pattern" $select_option --height 40% --reverse --prompt="Goto> ")
+        | fzf --query="$pattern" $select_option --height 40% --reverse --prompt=$prompt)
     if [ -n "$dir" ]; then
         cd "$dir" || echo "Error: Cannot change directory to $dir"
     else
