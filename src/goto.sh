@@ -1,19 +1,18 @@
 #!/bin/bash
 
 function goto() {
-    # Initialize variables
-    local pattern=""
-    local select_option=""
+    # Initialize default variables
+    local depth="-maxdepth 5" # Default depth
+    local select_option="" # Default select option
     
-
     # Check if pattern is given
     if [ -z "$1" ]; then
         echo "Usage: goto <directory_name_pattern>"
         return 1
     fi
 
-    # Setup local variables
-    pattern="$1"
+    # Setup select option based on pattern length
+    local pattern="$1"
     if [ ${#pattern} -ge 3 ]; then
         select_option="--select-1"
     fi
