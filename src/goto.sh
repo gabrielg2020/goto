@@ -63,15 +63,15 @@ function goto() {
 
     # Build the exclude paths for find command
     local find_exclude=()
-    if [ ${#exclude[@]} -ne 0 ]; then
-        for path in "${exclude[@]}"; do
-            find_exclude+=(-path "*/$path" -prune -o)
+    if [ ${#exclude_paths[@]} -ne 0 ]; then
+        for excluded_path in "${exclude_paths[@]}"; do
+            find_exclude+=(-path "*/$excluded_path" -prune -o)
         done
     fi
 
     # Find directory and pipe to fzf
     local dir
-    dir=$(find . "${depth[@]}" -type d -iname '*' -print 2>/dev/null \
+    dir=$(find . "${depth[@]}" "${find_exclude[@]}" -type d -iname '*' -print 2>/dev/null \
         | fzf --query="$pattern" $select_option --height 40% --reverse --prompt=$prompt)
     if [ -n "$dir" ]; then
         cd "$dir" || echo "Error: Cannot change directory to $dir"
