@@ -13,9 +13,7 @@ function goto() {
 
     # Find directory and pipe to fzf
     dir=$(find . -type d -iname '*' -print 2>/dev/null \
-        | fzf --query="$patten" --exit-0 --height 40% --reverse --prompt="Goto> ")
-
-    # Change directory
+        | fzf --query="$pattern" --height 40% --reverse --prompt="Goto> ")
     if [ -n "$dir" ]; then
         cd "$dir" || echo "Error: Cannot change directory to $dir"
     else
