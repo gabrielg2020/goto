@@ -5,6 +5,13 @@ function goto() {
     # Initialize default variables
     local depth=(-maxdepth 5) # Default depth
     local select_option="" # Default select option
+    local exclude_paths=() # Default exclude directories
+
+    # Source config file
+    local config_file="$HOME/.goto"
+    if [ -f "$config_file" ]; then
+        source "$config_file"
+    fi
 
     # Parse options
     while getopts ":d:" opt; do 
