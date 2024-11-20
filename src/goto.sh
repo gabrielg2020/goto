@@ -50,7 +50,6 @@ function goto() {
         local prompt="Goto (Depth: ${depth[@]})> "
     fi
 
-
     # Find directory and pipe to fzf
     local dir
     dir=$(find . "${depth[@]}" -type d -iname '*' -print 2>/dev/null \
