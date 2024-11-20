@@ -5,6 +5,21 @@ function goto() {
     # Initialize default variables
     local depth=(-maxdepth 5) # Default depth
     local select_option="" # Default select option
+
+    # Parse options
+    while getopts ":d:" opt; do 
+        case $opt in
+            d)
+                if [ "$OPTARG" = "0" ] || [ "$OPTARG" = "unlimited" ]; then
+                    depth=() # Set depth to unlimited
+                else
+                    depth=(-maxdepth $OPTARG) # Set depth to given value
+                fi
+                ;;
+        esac
+    done
+    # Remove parsed options
+    shift $((OPTIND -1))
     
     # Check if pattern is given
     if [ -z "$1" ]; then
@@ -20,7 +35,7 @@ function goto() {
 
     # Find directory and pipe to fzf
     local dir
-    dir=$(find . -type d -iname '*' -print 2>/dev/null \
+    dir=$(find . "${depth[@]}" -type d -iname '*' -print 2>/dev/null \
         | fzf --query="$pattern" $select_option --height 40% --reverse --prompt="Goto> ")
     if [ -n "$dir" ]; then
         cd "$dir" || echo "Error: Cannot change directory to $dir"
