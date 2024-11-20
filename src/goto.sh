@@ -8,7 +8,7 @@ function goto() {
     local pattern="$1"
     local dir
     dir=$(find . -type d -iname '*' -print 2>/dev/null \
-        | fzf --query="$patten" --height 40% --reverse --prompt="Goto> ")
+        | fzf --query="$patten" --exit-0 --height 40% --reverse --prompt="Goto> ")
     if [ -n "$dir" ]; then
         cd "$dir" || echo "Error: Cannot change directory to $dir"
     else
