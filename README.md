@@ -51,16 +51,40 @@ goto <pattern>
 ```
 
 ### Example
-`cd` into an old project directory.
-```bash
-cd old-project
+Lets say you have a project that has a directory structure like this
+```
+project/
+├─ sizzle/
+│  ├─ foo/
+├─ grizzle/
+│  ├─ fizz/
+├─ swizzle/
+├─ fizzle/
+├─ ...
 ```
 
-Find that random directory that you need.
+#### `cd` into project directory
 ```bash
-goto random-directory
+cd project
 ```
-- Select `random-directory` in fuzzy finder.
+
+#### Find all directories that start with `f`
+```bash
+goto f
+```
+- Lists `sizzle/foo`, `grizzle/fizz`, `fizzle`.
+
+#### Find all directories that end with `izzle`
+```bash
+goto izzle
+```
+- Lists `sizzle`, `grizzle`, `swizzle`, `fizzle`.
+
+#### Auto-`cd` into `swizzle/foo`
+```bash
+goto swizzle
+```
+- Now in the `swizzle/foo` directory.
 
 ## Features to be added
 - Speed improvements, most likely with `fd`.
