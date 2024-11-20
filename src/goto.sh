@@ -16,6 +16,16 @@ function goto() {
                     depth=(-maxdepth $OPTARG) # Set depth to given value
                 fi
                 ;;
+            \?)
+                echo "Invalid option: -$OPTARG" >&2
+                echo "Usage: goto [-d depth] <directory_name_pattern>"
+                return 1
+                ;;
+            :)
+                echo "Option -$OPTARG requires an argument." >&2
+                echo "Usage: goto [-d depth] <directory_name_pattern>"
+                return 1
+                ;;
         esac
     done
     # Remove parsed options
