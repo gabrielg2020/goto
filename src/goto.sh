@@ -1,8 +1,9 @@
 #!/bin/bash
 
 function goto() {
+    local OPTIND=1  # Reset OPTIND
     # Initialize default variables
-    local depth="-maxdepth 5" # Default depth
+    local depth=(-maxdepth 5) # Default depth
     local select_option="" # Default select option
     
     # Check if pattern is given
