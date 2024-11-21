@@ -5,6 +5,8 @@
 - Fuzzy Matching: Match directories containing the search pattern anywhere in their names.
 - Interactive Selection: Use `fzf` for real-time, interactive directory selection.
 - Change search depth with `-d` argument.
+- Configuration!
+  - Add directories to be excluded from search.
 
 ## Prerequisites  
 - `fzf`: A general-purpose command-line fuzzy finder.
@@ -23,7 +25,7 @@ sudo apt-get install fzf
 ```
 ### 2. Clone the Repository into Your Home Directory
 ```bash
-git clone https://github.com/gabrielg2020/goto.git
+git clone https://github.com/gabrielg2020/goto.git $HOME/goto
 ```
 
 ### 3. Source the goto Function in Your Shell Configuration
@@ -31,8 +33,21 @@ Add following line to your `~/.bashrc` or `~/zshrc` file:
 ```bash
 # Source the goto function
 if [ -f ~/goto/src/goto.sh ]; then
-    source ~/goto/src/goto.sh
+    source $HOME/goto/src/goto.sh
 fi
+```
+
+### 4. Create Configuration File (Optional)
+```bash
+touch $HOME/.goto.conf
+```
+#### Template Configuration File
+```bash
+local exclude_paths=(
+        "node_modules"
+        ".git"
+        ".github"
+    )
 ```
 
 #### 3.1 Reload Shell Configuration
@@ -102,5 +117,10 @@ goto -d 1 s
 ## Features to be added
 - Speed improvements, most likely with `fd`.
 - Gracefully deal with empty inputs.
-- Exclude directories.
 - Add base directory argument.
+- Add include directories argument.
+- Add file search argument.
+- Add to configuration.
+  - Default search depth.
+  - `fzf` customisation.
+- Split large `goto` function to separate functions.
