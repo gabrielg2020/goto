@@ -5,6 +5,17 @@ function goto() {
     # Initialize default variables
     local depth=(-maxdepth 5) # Default depth
     local select_option="" # Default select option
+    local exclude_paths=( # Default exclude directories
+        "node_modules"
+        ".git"
+        ".github"
+    ) 
+
+    # Source config file
+    local config_file="$HOME/.goto.conf"
+    if [ -f "$config_file" ]; then
+        source "$config_file"
+    fi
 
     # Parse options
     while getopts ":d:" opt; do 
@@ -50,9 +61,17 @@ function goto() {
         local prompt="Goto (Depth: ${depth[@]})> "
     fi
 
+    # Build the exclude paths for find command
+    local find_exclude=()
+    if [ ${#exclude_paths[@]} -ne 0 ]; then
+        for excluded_path in "${exclude_paths[@]}"; do
+            find_exclude+=(-path "*/$excluded_path" -prune -o)
+        done
+    fi
+
     # Find directory and pipe to fzf
     local dir
-    dir=$(find . "${depth[@]}" -type d -iname '*' -print 2>/dev/null \
+    dir=$(find . "${depth[@]}" "${find_exclude[@]}" -type d -iname '*' -print 2>/dev/null \
         | fzf --query="$pattern" $select_option --height 40% --reverse --prompt=$prompt)
     if [ -n "$dir" ]; then
         cd "$dir" || echo "Error: Cannot change directory to $dir"
