@@ -1,81 +1,36 @@
 #!/bin/bash
 
+# Main entry point for `goto`
 function goto() {
-    local OPTIND=1  # Reset OPTIND
-    # Initialize default variables
-    local depth=(-maxdepth 5) # Default depth
-    local select_option="" # Default select option
-    local exclude_paths=( # Default exclude directories
-        "node_modules"
-        ".git"
-        ".github"
-    ) 
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-    # Source config file
-    local config_file="$HOME/.goto.conf"
-    if [ -f "$config_file" ]; then
-        source "$config_file"
-    fi
+    # Source dependencies
+    source "$SCRIPT_DIR/src/utils.sh"
+    source "$SCRIPT_DIR/src/config.sh"
+    source "$SCRIPT_DIR/src/options.sh"
+    source "$SCRIPT_DIR/src/search.sh"
+    source "$SCRIPT_DIR/src/fzf_integration.sh"
 
-    # Parse options
-    while getopts ":d:" opt; do 
-        case $opt in
-            d)
-                if [ "$OPTARG" = "0" ] || [ "$OPTARG" = "unlimited" ]; then
-                    depth=() # Set depth to unlimited
-                else
-                    depth=(-maxdepth $OPTARG) # Set depth to given value
-                fi
-                ;;
-            \?)
-                echo "Invalid option: -$OPTARG" >&2
-                echo "Usage: goto [-d depth] <directory_name_pattern>"
-                return 1
-                ;;
-            :)
-                echo "Option -$OPTARG requires an argument." >&2
-                echo "Usage: goto [-d depth] <directory_name_pattern>"
-                return 1
-                ;;
-        esac
-    done
-    # Remove parsed options
-    shift $((OPTIND -1))
-    
-    # Check if pattern is given
-    if [ -z "$1" ]; then
-        echo "Usage: goto <directory_name_pattern>"
-        return 1
-    fi
+    # Load config
+    load_default_config
+    #load_config
 
-    # Setup select option based on pattern length
-    local pattern="$1"
-    if [ ${#pattern} -ge 3 ]; then
-        select_option="--select-1"
-    fi
+    # Parse options and validate arguments
+    parse_options "$@" || return 1
+    validate_args || return 1
 
-    # Setup prompt based on depth
-    if [ ${#depth[@]} -eq 0 ]; then
-        local prompt="Goto (Unlimited)> "
-    else 
-        local prompt="Goto (Depth: ${depth[@]})> "
-    fi
+    # Build and execute the find command
+    build_find_command
+    execute_find_command
 
-    # Build the exclude paths for find command
-    local find_exclude=()
-    if [ ${#exclude_paths[@]} -ne 0 ]; then
-        for excluded_path in "${exclude_paths[@]}"; do
-            find_exclude+=(-path "*/$excluded_path" -prune -o)
-        done
-    fi
+    # Configure fzf and launch it
+    configure_fzf
+    launch_fzf
 
-    # Find directory and pipe to fzf
-    local dir
-    dir=$(find . "${depth[@]}" "${find_exclude[@]}" -type d -iname '*' -print 2>/dev/null \
-        | fzf --query="$pattern" $select_option --height 40% --reverse --prompt=$prompt)
-    if [ -n "$dir" ]; then
-        cd "$dir" || echo "Error: Cannot change directory to $dir"
+    # Change directory to the selected directory
+    if [ -n "$SELECTED_DIR" ]; then
+        cd "$SELECTED_DIR" || return 1
     else
-        echo "No directory selected."
+        echo "No directory selected" 
     fi
 }
