@@ -11,7 +11,7 @@ function parse_options() {
         if [[ ! "$OPTARG" =~ ^[0-9]+$ ]]; then # If argument is not a number
           echo "Invalid depth: $OPTARG" >&2
           return 1
-        elif [[ "$OPTARG" == "0" || "$OPTARG" == "unlimited" ]]; then
+        elif [[ "$OPTARG" == "0" ]]; then
           DEPTH=() # Unlimited depth
         else
           DEPTH=(-maxdepth "$OPTARG")
