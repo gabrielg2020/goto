@@ -7,7 +7,7 @@ import (
 
 func main() {
 	// Define flags
-	maxDepth := flag.Int("d", 1, "Maximum depth to search")
+	maxDepth := flag.Int("d", 5, "Maximum depth to search")
 	flag.Parse()
 
 	// Remaining arguments

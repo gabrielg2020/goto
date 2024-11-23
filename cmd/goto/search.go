@@ -18,7 +18,8 @@ func SearchDirectories(path string, maxDepth int, pattern string) (string, error
 	cmd.Stdout = &out
 
 	// Run the command
-	if err := cmd.Run(); err != nil {
+	err := cmd.Run()
+	if exitErr, ok := err.(*exec.ExitError); ok && exitErr.ExitCode() != 1 {
 		return "", fmt.Errorf("error running the find command: %v", err)
 	}
 
