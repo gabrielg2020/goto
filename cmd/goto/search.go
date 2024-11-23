@@ -8,9 +8,12 @@ import (
 )
 
 // Uses the `find` command to list directories up to a certain depth
-func SearchDirectories(path string, maxDepth int, pattern string) (string, error) {
+func SearchDirectories(path string, maxDepth int, pattern string, excludeDirs []string) (string, error) {
 	// Construct `find` command
 	findArgs := []string{path, "-type", "d", "-maxdepth", fmt.Sprintf("%d", maxDepth), "-name", fmt.Sprintf("*%s*", pattern), "!", "-name", "."}
+	for _, dir := range excludeDirs {
+		findArgs = append(findArgs, "!", "-path", fmt.Sprintf("*%s*", dir))
+	}
 	cmd := exec.Command("find", findArgs...)
 
 	// Capture the output
@@ -59,9 +62,9 @@ func FuzzySelectDirectory(directories string, pattern string) (string, error) {
 }
 
 // Combines the search and fuzzy selection
-func SearchAndSelect(path string, maxDepth int, pattern string) (string, error) {
+func SearchAndSelect(path string, maxDepth int, pattern string, excludeDirs []string) (string, error) {
 	// Call the search function
-	directories, err := SearchDirectories(path, maxDepth, pattern)
+	directories, err := SearchDirectories(path, maxDepth, pattern, excludeDirs)
 	if err != nil {
 		return "", err
 	}
