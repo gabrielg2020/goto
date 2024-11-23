@@ -43,6 +43,11 @@ func FuzzySelectDirectory(directories string) (string, error) {
 
 	// Run the command
 	if err := cmd.Run(); err != nil {
+		// Check if error is due to cancelled selection
+		if exitErr, ok := err.(*exec.ExitError); ok && exitErr.ExitCode() == 130 {
+			return "", fmt.Errorf("selection cancelled")
+		}
+
 		return "", fmt.Errorf("error running the fzf command: %v", err)
 	}
 
