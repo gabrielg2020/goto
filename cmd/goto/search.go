@@ -8,9 +8,10 @@ import (
 )
 
 // Uses the `find` command to list directories up to a certain depth
-func SearchDirectories(path string, maxDepth int) (string, error) {
+func SearchDirectories(path string, maxDepth int, pattern string) (string, error) {
 	// Construct `find` command
-	cmd := exec.Command("find", path, "-type", "d", "-maxdepth", fmt.Sprintf("%d", maxDepth), "!", "-name", ".")
+	findArgs := []string{path, "-type", "d", "-maxdepth", fmt.Sprintf("%d", maxDepth), "-name", fmt.Sprintf("*%s*", pattern), "!", "-name", "."}
+	cmd := exec.Command("find", findArgs...)
 
 	// Capture the output
 	var out bytes.Buffer
@@ -29,11 +30,11 @@ func SearchDirectories(path string, maxDepth int) (string, error) {
 	return out.String(), nil
 }
 
-
 // Uses the `fzf` command to fuzzy select a directory
-func FuzzySelectDirectory(directories string) (string, error) {
+func FuzzySelectDirectory(directories string, pattern string) (string, error) {
 	// Construct `fzf` command
-	cmd := exec.Command("fzf", "--height", "50%", "--reverse")
+	fzfArgs := []string{"--height", "50%", "--reverse", "--query", pattern, "--border", "rounded", "--header", "Select a directory"}
+	cmd := exec.Command("fzf", fzfArgs...)
 
 	// Set the input
 	cmd.Stdin = bytes.NewBufferString(directories)
@@ -51,22 +52,21 @@ func FuzzySelectDirectory(directories string) (string, error) {
 
 		return "", fmt.Errorf("error running the fzf command: %v", err)
 	}
-	
+
 	// Remove leading and trailing whitespace
 	return strings.TrimSpace(out.String()), nil
 }
 
-
 // Combines the search and fuzzy selection
-func SearchAndSelect(path string, maxDepth int) (string, error) {
+func SearchAndSelect(path string, maxDepth int, pattern string) (string, error) {
 	// Call the search function
-	directories, err := SearchDirectories(path, maxDepth)
+	directories, err := SearchDirectories(path, maxDepth, pattern)
 	if err != nil {
 		return "", err
 	}
 
 	// Call the fuzzy selection function
-	selectedDir, err := FuzzySelectDirectory(directories)
+	selectedDir, err := FuzzySelectDirectory(directories, pattern)
 	if err != nil {
 		return "", err
 	}
