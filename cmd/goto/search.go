@@ -9,7 +9,7 @@ import (
 // Uses the `find` command to list directories up to a certain depth
 func SearchDirectories(path string, maxDepth int) (string, error) {
 	// Construct `find` command
-	cmd := exec.Command("find", path, "-type", "d", "-maxdepth", fmt.Sprintf("%d", maxDepth))
+	cmd := exec.Command("find", path, "-type", "d", "-maxdepth", fmt.Sprintf("%d", maxDepth), "!", "-name", ".")
 
 	// Capture the output
 	var out bytes.Buffer
@@ -18,6 +18,11 @@ func SearchDirectories(path string, maxDepth int) (string, error) {
 	// Run the command
 	if err := cmd.Run(); err != nil {
 		return "", fmt.Errorf("error running the find command: %v", err)
+	}
+
+	// Check if no directories were found
+	if out.Len() == 0 {
+		return "", fmt.Errorf("no directories found")
 	}
 
 	return out.String(), nil
