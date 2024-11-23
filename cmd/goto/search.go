@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"os/exec"
+	"strings"
 )
 
 // Uses the `find` command to list directories up to a certain depth
@@ -50,8 +51,9 @@ func FuzzySelectDirectory(directories string) (string, error) {
 
 		return "", fmt.Errorf("error running the fzf command: %v", err)
 	}
-
-	return out.String(), nil
+	
+	// Remove leading and trailing whitespace
+	return strings.TrimSpace(out.String()), nil
 }
 
 
