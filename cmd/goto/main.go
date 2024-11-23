@@ -5,8 +5,8 @@ import (
 )
 
 func main() {
-	// Call the search function
-	results, err := SearchDirectories(".", 2)
+	// Call the search and select function
+	results, err := SearchAndSelect(".", 0)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		return
