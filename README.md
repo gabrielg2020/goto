@@ -98,7 +98,7 @@ excludeDirs:
 | `excludeDirs` | Directories to be excluded from the search. | `".git", "node_modules"` |
 
 ## Contributing
-We welcome contributions! Please open an issue or pull request with your changes.
+We welcome contributions! Please look at [CONTRIBUTING.md](https://github.com/gabrielg2020/goto/blob/main/CONTRIBUTING.md) to learn how to contribute.
 
 ### developers.md
 The [developers.md](https://github.com/gabrielg2020/goto/blob/main/developers.md) file explains some key ideas and decisions, future consideration and extra knowledge of this project.
