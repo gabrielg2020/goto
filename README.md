@@ -101,7 +101,7 @@ excludeDirs:
 We welcome contributions! Please look at [CONTRIBUTING.md](https://github.com/gabrielg2020/goto/blob/main/CONTRIBUTING.md) to learn how to contribute.
 
 ### developers.md
-The [developers.md](https://github.com/gabrielg2020/goto/blob/main/developers.md) file explains some key ideas and decisions, future consideration and extra knowledge of this project.
+The [developers.md](https://github.com/gabrielg2020/goto/blob/main/developers.md) file is a guide that explains some key ideas and decisions, future consideration and extra knowledge of this project.
 
 ### Change Log
 [Change Log](https://github.com/gabrielg2020/goto/blob/main/CHANGELOG.md)
