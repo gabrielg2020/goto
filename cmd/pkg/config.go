@@ -3,8 +3,6 @@ package pkg
 import (
 	"fmt"
 	"os"
-	"path/filepath"
-
 	"gopkg.in/yaml.v3"
 )
 
@@ -15,15 +13,8 @@ type Config struct {
 }
 
 // LoadConfig loads the configuration from $HOME/.goto_config.yaml
-func LoadConfig() (*Config, error) {
-	// Get the user home directory
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		return nil, fmt.Errorf("error getting the user home directory: %v", err)
-	}
-
-	// Open the configuration file
-	configPath := filepath.Join(homeDir, ".goto_config.yaml")
+func LoadConfig(configPath string) (*Config, error) {
+		// Open the configuration file
 	file, err := os.Open(configPath)
 	if err != nil {
 		if os.IsNotExist(err) {

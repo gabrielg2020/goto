@@ -3,13 +3,20 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 
 	gotoPkg "github.com/gabrielg2020/goto/cmd/pkg"
 )
 
 func main() {
 	// Get the configuration
-	config, err := gotoPkg.LoadConfig()
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		return
+	}
+	configPath := fmt.Sprintf("%s/.goto_config.yaml", homeDir)
+	config, err := gotoPkg.LoadConfig(configPath)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		return
