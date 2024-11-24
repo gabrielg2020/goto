@@ -1,126 +1,115 @@
 # goto
-`goto` is a shell function that adds quick navigation to directories using fuzzy search powered by `fzf`. Jump to directories by matching patterns anywhere within directory names.
+
+`goto` is a lightweight terminal tool that simplifies directory navigation.
 
 ## Features
-- Fuzzy Matching: Match directories containing the search pattern anywhere in their names.
-- Interactive Selection: Use `fzf` for real-time, interactive directory selection.
-- Change search depth with `-d` argument.
-- Configuration!
-  - Add directories to be excluded from search.
-
-## Prerequisites  
-- `fzf`: A general-purpose command-line fuzzy finder.
-- `git` (optional).
+- Quickly navigate directories with fuzzy search.
+- Customise behaviour with configuration options.
+- Compatible with Bash and Zsh shells.
 
 ## Installation
-### 1. Install `fzf`
-macOS:
+
+### Using a Package Manager
+Coming soon!
+
+### Manual Installation
+#### 1. Clone the repository:
 ```bash
-brew install fzf
+git clone https://github.com/gabrielg2020/goto.git
+cd goto
 ```
 
-Linux (Debian/Ubuntu):
+#### 2. Build the binary:
 ```bash
-sudo apt-get install fzf
-```
-### 2. Clone the Repository into Your Home Directory
-```bash
-git clone https://github.com/gabrielg2020/goto.git $HOME/goto
+go build -o goto ./cmd/
 ```
 
-### 3. Source the goto Function in Your Shell Configuration
-Add following line to your `~/.bashrc` or `~/zshrc` file:
+#### 3. Move the binary to a directory in your `PATH`:
 ```bash
-# Source the goto function
-if [ -f ~/goto/src/goto.sh ]; then
-    source $HOME/goto/src/goto.sh
-fi
+mv goto /usr/local/bin/
 ```
 
-### 4. Create Configuration File (Optional)
+#### 4. Install dependencies
+Please make sure that these are installed.
+- [fzf](https://github.com/junegunn/fzf)
+
+### Shell Integration
+#### Automated Integration
+Run the provided setup script to automate this setup:
 ```bash
-touch $HOME/.goto.conf
-```
-#### Template Configuration File
-```bash
-local exclude_paths=(
-        "node_modules"
-        ".git"
-        ".github"
-    )
+./setup.sh
 ```
 
-#### 3.1 Reload Shell Configuration
+### Manual Integration
+Add the following function to your `.bashrc` or `.zshrc`:
 ```bash
-source ~/.bashrc    # For Bash
-# or
-source ~/.zshrc     # For Zsh
+goto() {
+    dir=$(/usr/local/bin/goto "$@")
+
+    if [ -d "$dir" ]; then
+        echo "Changing directory to: $dir"
+        cd "$dir"
+    else
+        echo "No directory selected or invalid directory: $dir"
+    fi
+}
+```
+
+### Verify Installation
+>[!NOTE]
+> Coming soon!
+```bash
+goto --help
 ```
 
 ## Usage
->[!WARNING]
->`goto` is slow. Beware when using, it may take a long time...
-
 ### Basic Command
 ```bash
 goto <pattern>
 ```
 
-### Change search depth
+#### Example
 ```bash
-goto -d <max-depth> <pattern>
-```
-`<max-depth>` is set to `5` by default
-
-### Example
-Lets say you have a project that has a directory structure like this
-```
-project/
-├─ sizzle/
-│  ├─ foo/
-├─ grizzle/
-│  ├─ fizz/
-├─ swizzle/
-├─ fizzle/
-├─ ...
+goto src
 ```
 
-#### `cd` into project directory
-```bash
-cd project
+### Options
+| Option | Description |
+| :---------: | :------------------------------------ |
+| `-d` | Specify maximum search depth. |
+| `<pattern>` | Fuzzy search pattern for directories. |
+
+## Configuration
+`goto` uses a configuration file located at `~/.goto_config.yaml`. This file is optional and allows you to customise the tool's behaviour.
+
+### Example Configuration
+```yaml
+maxDepth: 3
+excludeDirs:
+  - node_modules
+  - .git
+  - .vscode
 ```
 
-#### Find all directories that start with `f`
-```bash
-goto f
-```
-- Lists `sizzle/foo`, `grizzle/fizz`, `fizzle`.
+### Options
+| Option | Description | Default |
+| :-----------: | :------------------------------------------ | :----------------------- |
+| `maxDepth` | Maximum search depth. | `5` |
+| `excludeDirs` | Directories to be excluded from the search. | `".git", "node_modules"` |
 
-#### Find all directories that end with `izzle`
-```bash
-goto izzle
-```
-- Lists `sizzle`, `grizzle`, `swizzle`, `fizzle`.
+## Contributing
+We welcome contributions! Please open an issue or pull request with your changes.
 
-#### Auto-`cd` into `swizzle/foo`
-```bash
-goto swizzle
-```
-- Now in the `swizzle/foo` directory.
+### developers.md
+The [developers.md](https://github.com/gabrielg2020/goto/blob/main/developers.md) file explains some key ideas and decisions, future consideration and extra knowledge of this project.
 
-#### Search 1 directory deep
-```bash
-goto -d 1 s
-```
-- Lists `sizzle` & `swizzle`
+### Change Log
+[Change Log](https://github.com/gabrielg2020/goto/blob/main/CHANGELOG.md)
 
-## Features to be added
-- Speed improvements, most likely with `fd`.
-- Gracefully deal with empty inputs.
-- Add base directory argument.
-- Add include directories argument.
-- Add file search argument.
-- Add to configuration.
-  - Default search depth.
-  - `fzf` customisation.
-- Split large `goto` function to separate functions.
+### Documentation
+Coming Soon! 
+
+## License
+The MIT Licence (MIT)
+
+Copyright (c) 2023 - 2024 Gabriel Guimaraes. All Rights Reserved.
