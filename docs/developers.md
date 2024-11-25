@@ -5,11 +5,13 @@ This guide explains the architecture, key decisions, and trade-offs made during 
 ---
 
 ## Project Structure
-- **`cmd/main.go`**: Entry point for the application.
-- **`cmd/pkg/search.go`**: Logic for directory searching using `find` and `fzf`.
-- **`cmd/pkg/config.go`**: Logic for dealing with user configurations.
-- **`setup.sh`**: Shell integration setup script.
-- **`test/`**: Unit tests.
+| Directory/File | Description |
+| :------------ | :-------------------------------------------------------------- |
+| **`cmd/main.go`** | Entry point for the application. |
+| **`cmd/pkg/search.go`** | Logic for directory searching using `find` and `fzf`. |
+| **`cmd/pkg/config.go`** | Logic for dealing with user configurations. |
+| **`setup.sh`** | Shell integration setup script. |
+| **`test/`** | Unit tests. |
 
 ---
 
@@ -17,7 +19,7 @@ This guide explains the architecture, key decisions, and trade-offs made during 
 ### 1. Why Go?
 - **Reason**: Go provides a lightweight, fast, and cross-platform environment for CLI tools.
 - **Trade-offs**: Limited third-party libraries compared to other languages, but we prioritize simplicity.
-- 
+
 ### 2. Why `find` and `fzf`?
 - `find` is robust and handles directory traversal efficiently.
 - `fzf` provides a fast, well-supported fuzzy search interface.
