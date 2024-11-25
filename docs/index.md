@@ -9,3 +9,4 @@ title: Home
 
 ## Documentation
 - [Getting Started](getting-started.md)
+- [Configuration](configuration.md)

@@ -50,6 +50,7 @@ goto() {
 ### Verify Installation
 >[!NOTE]
 > Coming soon!
+
 ```bash
 goto --help
 ```
