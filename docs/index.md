@@ -10,3 +10,5 @@ title: Home
 ## Documentation
 - [Getting Started](getting-started.md)
 - [Configuration](configuration.md)
+- [Developers](developers.md)
+- [Change Log](changelog.md)

@@ -30,6 +30,8 @@ excludeDirs:
 | `maxDepth` | Maximum search depth. | `5` |
 | `excludeDirs` | Directories to be excluded from the search. | `".git", "node_modules"` |
 
+---
+
 ## Example Configuration 
 
 Here's a complete example of a typical `.goto_config.yaml` file:

@@ -2,12 +2,16 @@
 
 This guide explains the architecture, key decisions, and trade-offs made during the development of `goto`.
 
+---
+
 ## Project Structure
 - **`cmd/main.go`**: Entry point for the application.
 - **`cmd/pkg/search.go`**: Logic for directory searching using `find` and `fzf`.
 - **`cmd/pkg/config.go`**: Logic for dealing with user configurations.
 - **`setup.sh`**: Shell integration setup script.
 - **`test/`**: Unit tests.
+
+---
 
 ## Key Decisions
 ### 1. Why Go?
@@ -25,6 +29,8 @@ This guide explains the architecture, key decisions, and trade-offs made during 
 ### 4. Shell Integration Approach
 - Wrapper functions in `.bashrc` and `.zshrc` enable seamless navigation.
 - **Challenge**: Go binaries cannot directly change the shell's state, so outputting the path to a wrapper script was the solution.
+
+---
 
 ## Future Considerations
 - Add bookmarks for frequently used directories.

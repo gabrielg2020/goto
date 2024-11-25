@@ -25,6 +25,8 @@ mv goto /usr/local/bin/
 Please make sure that these are installed.
 - [fzf](https://github.com/junegunn/fzf)
 
+---
+
 ### Shell Integration
 #### Automated Integration
 Run the provided setup script to automate this setup:
@@ -46,6 +48,8 @@ goto() {
     fi
 }
 ```
+
+---
 
 ### Verify Installation
 >[!NOTE]
