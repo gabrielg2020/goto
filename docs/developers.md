@@ -5,6 +5,7 @@ This guide explains the architecture, key decisions, and trade-offs made during 
 ---
 
 ## Project Structure
+
 | Directory/File | Description |
 | :------------ | :-------------------------------------------------------------- |
 | **`cmd/main.go`** | Entry point for the application. |
