@@ -11,6 +11,7 @@ title: Home
 
 ## Contents
 - [Getting Started](getting-started.md)
+- [Usage](usage.md)
 - [Configuration](configuration.md)
 - [Developers](developers.md)
 - [Change Log](changelog.md)
@@ -80,6 +81,37 @@ goto --help
 
 ---
 
+# Usage
+
+## Basic Command
+```bash
+goto <pattern>
+```
+
+### Example
+```bash
+goto src
+```
+
+----
+
+## Options
+
+| Option | Description |
+| ----------- | ------------------------------------- |
+| `-d` | Specify maximum search depth. |
+| `<pattern>` | Fuzzy search pattern for directories. |
+
+---
+
+## Error Messages
+
+| Error Code | Description |
+| ----------- | ------------------------------------- |
+| Coming Soon! | Coming Soon! |
+
+---
+
 # Configuration
 
 `goto` allows you to customize its behavior using a configuration file. This file provides options to define default search settings and exclude specific directories from the results.
@@ -108,7 +140,7 @@ excludeDirs:
 ## Available Options
 
 |    Option     | Description                                 | Default                  |
-| :-----------: | :------------------------------------------ | :----------------------- |
+| ------------- | ------------------------------------------- | ------------------------ |
 |  `maxDepth`   | Maximum search depth.                       | `5`                      |
 | `excludeDirs` | Directories to be excluded from the search. | `".git", "node_modules"` |
 
@@ -136,7 +168,7 @@ This guide explains the architecture, key decisions, and trade-offs made during 
 ## Project Structure
 
 | Directory/File          | Description                                           |
-| :---------------------- | :---------------------------------------------------- |
+| ----------------------- | ----------------------------------------------------- |
 | **`cmd/main.go`**       | Entry point for the application.                      |
 | **`cmd/pkg/search.go`** | Logic for directory searching using `find` and `fzf`. |
 | **`cmd/pkg/config.go`** | Logic for dealing with user configurations.           |
