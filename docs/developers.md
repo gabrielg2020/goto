@@ -6,13 +6,13 @@ This guide explains the architecture, key decisions, and trade-offs made during 
 
 ## Project Structure
 
-| Directory/File | Description |
-| :------------ | :-------------------------------------------------------------- |
-| **`cmd/main.go`** | Entry point for the application. |
+| Directory/File          | Description                                           |
+| :---------------------- | :---------------------------------------------------- |
+| **`cmd/main.go`**       | Entry point for the application.                      |
 | **`cmd/pkg/search.go`** | Logic for directory searching using `find` and `fzf`. |
-| **`cmd/pkg/config.go`** | Logic for dealing with user configurations. |
-| **`setup.sh`** | Shell integration setup script. |
-| **`test/`** | Unit tests. |
+| **`cmd/pkg/config.go`** | Logic for dealing with user configurations.           |
+| **`setup.sh`**          | Shell integration setup script.                       |
+| **`test/`**             | Unit tests.                                           |
 
 ---
 
@@ -49,3 +49,5 @@ This guide explains the architecture, key decisions, and trade-offs made during 
   - Maybe both?
 
 ---
+
+[Back](index.md)

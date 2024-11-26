@@ -107,9 +107,9 @@ excludeDirs:
 
 ## Available Options
 
-| Option | Description | Default |
+|    Option     | Description                                 | Default                  |
 | :-----------: | :------------------------------------------ | :----------------------- |
-| `maxDepth` | Maximum search depth. | `5` |
+|  `maxDepth`   | Maximum search depth.                       | `5`                      |
 | `excludeDirs` | Directories to be excluded from the search. | `".git", "node_modules"` |
 
 ---
@@ -135,13 +135,13 @@ This guide explains the architecture, key decisions, and trade-offs made during 
 
 ## Project Structure
 
-| Directory/File | Description |
-| :------------ | :-------------------------------------------------------------- |
-| **`cmd/main.go`** | Entry point for the application. |
+| Directory/File          | Description                                           |
+| :---------------------- | :---------------------------------------------------- |
+| **`cmd/main.go`**       | Entry point for the application.                      |
 | **`cmd/pkg/search.go`** | Logic for directory searching using `find` and `fzf`. |
-| **`cmd/pkg/config.go`** | Logic for dealing with user configurations. |
-| **`setup.sh`** | Shell integration setup script. |
-| **`test/`** | Unit tests. |
+| **`cmd/pkg/config.go`** | Logic for dealing with user configurations.           |
+| **`setup.sh`**          | Shell integration setup script.                       |
+| **`test/`**             | Unit tests.                                           |
 
 ---
 
@@ -192,3 +192,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 Coming soon!
 
 ---
+
+[Back](index.md)

@@ -58,3 +58,7 @@ goto() {
 ```bash
 goto --help
 ```
+
+---
+
+[Back](index.md)

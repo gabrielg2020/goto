@@ -25,9 +25,9 @@ excludeDirs:
 
 ## Available Options
 
-| Option | Description | Default |
+|    Option     | Description                                 | Default                  |
 | :-----------: | :------------------------------------------ | :----------------------- |
-| `maxDepth` | Maximum search depth. | `5` |
+|  `maxDepth`   | Maximum search depth.                       | `5`                      |
 | `excludeDirs` | Directories to be excluded from the search. | `".git", "node_modules"` |
 
 ---
@@ -44,3 +44,5 @@ excludeDirs:
 ```
 
 ---
+
+[Back](index.md)
