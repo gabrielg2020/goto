@@ -105,14 +105,6 @@ goto src
 
 ---
 
-## Error Messages
-
-| Error Code   | Description  |
-| ------------ |  ----------- |
-| Coming Soon! | Coming Soon! |
-
----
-
 # Configuration
 
 `goto` allows you to customize its behavior using a configuration file. This file provides options to define default search settings and exclude specific directories from the results.

@@ -19,13 +19,3 @@ goto src
 | `-d`        | Specify maximum search depth.         |
 | `-h`        | Display help message.                 |
 | `<pattern>` | Fuzzy search pattern for directories. |
-
----
-
-## Error Messages
-
-| Error Code   | Description  |
-| ------------ |  ----------- |
-| Coming Soon! | Coming Soon! |
-
-
