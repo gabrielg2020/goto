@@ -40,7 +40,8 @@ jobs:
           asset_path: dist/goto-${{ matrix.goos }}-${{ matrix.goarch }}
           asset_name: goto-${{ matrix.goos }}-${{ matrix.goarch }}
           asset_content_type: application/octet-stream
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
           
