@@ -1,0 +1,32 @@
+name: Release Workflow
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  release:
+    name: Release Binaries
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Downloads Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: goto-binaries
+      
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: dist/*
+          tag: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
+
+
+          
