@@ -47,3 +47,5 @@ This guide explains the architecture, key decisions, and trade-offs made during 
   - Maybe open with preferred text editor?
   - Maybe jump to file directory?
   - Maybe both?
+
+---
