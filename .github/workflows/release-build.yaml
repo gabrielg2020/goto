@@ -1,17 +1,14 @@
-name: Build Workflow
+name: Release Workflow
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  release:
+    types:
+      - created
 
 jobs:
-  build:
-    name: Build Binaries
-    runs-on: ubuntu-latest
+  build-and-release:
+    name: Build and Release Binaries
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         include:
@@ -36,12 +33,14 @@ jobs:
           GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
           go build -o dist/goto-${{ matrix.goos }}-${{ matrix.goarch }} ./cmd/
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
         with:
-          name: goto-binaries
-          path: dist/*
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: dist/goto-${{ matrix.goos }}-${{ matrix.goarch }}
+          asset_name: goto-${{ matrix.goos }}-${{ matrix.goarch }}
+          asset_content_type: application/octet-stream
 
 
 
-      
+          
