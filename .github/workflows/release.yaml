@@ -9,6 +9,9 @@ jobs:
   release:
     name: Release Binaries
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -17,7 +20,24 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: goto-binaries
-      
+
+      - name: Build Binaray
+        run: |
+          mkdir -p bin
+          if [ ${{ matrix.os }} == 'ubuntu-latest' ]; then
+            GOOS=linux GOARCH=amd64
+          elif [ ${{ matrix.os }} == 'macOS-latest' ]; then
+            GOOS=darwin GOARCH=amd64
+          fi
+          OUTPUT=dist/goto-${{ matrix.os }}.tar.gz
+          go build -o $OUTPUT ./cmd/
+  
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: goto-binaries
+          path: dist/*
+    
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
