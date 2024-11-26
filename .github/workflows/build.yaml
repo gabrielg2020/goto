@@ -1,0 +1,46 @@
+name: Build Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Binaries
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.23.x
+
+      - name: Build Binaray
+        run: |
+          mkdir -p bin
+          if [ ${{ matrix.os }} == 'ubuntu-latest' ]; then
+            GOOS=linux GOARCH=amd64
+          elif [ ${{ matrix.os }} == 'macOS-latest' ]; then
+            GOOS=darwin GOARCH=amd64
+          fi
+          OUTPUT=dist/goto-${{ matrix.os }}.tar.gz
+          go build -o $OUTPUT ./cmd/
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: goto-binaries
+          path: dist/*
+
+
+
+      
