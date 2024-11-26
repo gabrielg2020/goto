@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/gabrielg2020/goto/cmd/pkg"
 	gotoPkg "github.com/gabrielg2020/goto/cmd/pkg"
 )
 
@@ -23,13 +24,17 @@ func main() {
 	}
 
 	// Define flags
-	maxDepth := flag.Int("d", config.MaxDepth, "Maximum depth to search")
+	maxDepth := flag.Int("d", config.MaxDepth, "Maximum depth to search") // -d flag
+	flag.Usage = func() {                                                 // -h flag
+		fmt.Fprintf(os.Stderr, "%s\n", pkg.Usage())
+	}
+
 	flag.Parse()
 
 	// Remaining arguments
 	args := flag.Args()
 	if len(args) == 0 {
-		fmt.Println("Please provide a pattern")
+		flag.Usage()
 		return
 	}
 	pattern := args[0]
