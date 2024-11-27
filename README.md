@@ -74,9 +74,9 @@ goto src
 ```
 
 ### Options
-| Option | Description |
-| :---------: | :------------------------------------ |
-| `-d` | Specify maximum search depth. |
+| Option      | Description                           |
+| ----------- | :------------------------------------ |
+| `-d`        | Specify maximum search depth.         |
 | `<pattern>` | Fuzzy search pattern for directories. |
 
 ## Configuration
@@ -92,9 +92,9 @@ excludeDirs:
 ```
 
 ### Options
-| Option | Description | Default |
-| :-----------: | :------------------------------------------ | :----------------------- |
-| `maxDepth` | Maximum search depth. | `5` |
+| Option        | Description                                 | Default                  |
+| ------------- | ------------------------------------------- | ------------------------ |
+| `maxDepth`    | Maximum search depth.                       | `5`                      |
 | `excludeDirs` | Directories to be excluded from the search. | `".git", "node_modules"` |
 
 ## Contributing
