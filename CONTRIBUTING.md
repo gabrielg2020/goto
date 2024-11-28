@@ -5,7 +5,7 @@ Thank you for your interest in contributing to this Go project. This guide will 
 ### Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone git@github.com:0xnu/mothistory.git`
+2. Clone your fork: `git clone https://github.com/gabrielg2020/goto.git`
 3. Create your feature branch: `git checkout -b feature-name`
 4. Ensure you have Go installed (latest version recommended)
 
