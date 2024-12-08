@@ -47,10 +47,12 @@ func main() {
 	}
 
 	// Create a slice of tea items
+	items := gotoPkg.CreateItems(directories)
 
 	// Start model
 
 	// Get results
 
 	fmt.Println(directories)
+	fmt.Println(items)
 }
