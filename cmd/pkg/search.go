@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"os/exec"
-	"strings"
 )
 
 // Uses the `find` command to list directories up to a certain depth
@@ -32,48 +31,4 @@ func SearchDirectories(path string, maxDepth int, pattern string, excludeDirs []
 	}
 
 	return out.String(), nil
-}
-
-// Uses the `fzf` command to fuzzy select a directory
-func FuzzySelectDirectory(directories string, pattern string) (string, error) {
-	// Construct `fzf` command
-	fzfArgs := []string{"--height", "50%", "--reverse", "--query", pattern, "--border", "rounded", "--header", "Select a directory"}
-	cmd := exec.Command("fzf", fzfArgs...)
-
-	// Set the input
-	cmd.Stdin = bytes.NewBufferString(directories)
-
-	// Capture the output
-	var out bytes.Buffer
-	cmd.Stdout = &out
-
-	// Run the command
-	if err := cmd.Run(); err != nil {
-		// Check if error is due to cancelled selection
-		if exitErr, ok := err.(*exec.ExitError); ok && exitErr.ExitCode() == 130 {
-			return "", fmt.Errorf("selection cancelled")
-		}
-
-		return "", fmt.Errorf("error running the fzf command: %v", err)
-	}
-
-	// Remove leading and trailing whitespace
-	return strings.TrimSpace(out.String()), nil
-}
-
-// Combines the search and fuzzy selection
-func SearchAndSelect(path string, maxDepth int, pattern string, excludeDirs []string) (string, error) {
-	// Call the search function
-	directories, err := SearchDirectories(path, maxDepth, pattern, excludeDirs)
-	if err != nil {
-		return "", err
-	}
-
-	// Call the fuzzy selection function
-	selectedDir, err := FuzzySelectDirectory(directories, pattern)
-	if err != nil {
-		return "", err
-	}
-
-	return selectedDir, nil
 }

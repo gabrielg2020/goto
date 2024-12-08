@@ -39,12 +39,18 @@ func main() {
 	}
 	pattern := args[0]
 
-	// Call the search and select function
-	results, err := gotoPkg.SearchAndSelect(".", *maxDepth, pattern, config.ExcludeDirs)
+	// Grab directories
+	directories, err := gotoPkg.SearchDirectories(".", *maxDepth, pattern, config.ExcludeDirs)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		return
 	}
 
-	fmt.Println(results)
+	// Create a slice of tea items
+
+	// Start model
+
+	// Get results
+
+	fmt.Println(directories)
 }
