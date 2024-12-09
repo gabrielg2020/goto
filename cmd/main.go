@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/charmbracelet/bubbles/list"
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/gabrielg2020/goto/cmd/entities"
 	"github.com/gabrielg2020/goto/cmd/pkg"
 	gotoPkg "github.com/gabrielg2020/goto/cmd/pkg"
 )
@@ -50,9 +53,20 @@ func main() {
 	items := gotoPkg.CreateItems(directories)
 
 	// Start model
+	model := entities.Model{List: list.New(items, list.NewDefaultDelegate(), 0, 0)}
+	model.List.Title = "Pick a Directory"
 
-	// Get results
+	program := tea.NewProgram(model, tea.WithAltScreen())
 
-	fmt.Println(directories)
-	fmt.Println(items)
+	finalModel, err := program.Run()
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		return
+	}
+
+	if fm, ok := finalModel.(entities.Model); ok && fm.Choice != "" {
+		fmt.Println(fm.Choice)
+	} else {
+		fmt.Println("")
+	}
 }

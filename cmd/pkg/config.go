@@ -2,8 +2,8 @@ package pkg
 
 import (
 	"fmt"
-	"os"
 	"gopkg.in/yaml.v3"
+	"os"
 )
 
 // Config struct
@@ -14,7 +14,7 @@ type Config struct {
 
 // LoadConfig loads the configuration from $HOME/.goto_config.yaml
 func LoadConfig(configPath string) (*Config, error) {
-		// Open the configuration file
+	// Open the configuration file
 	file, err := os.Open(configPath)
 	if err != nil {
 		if os.IsNotExist(err) {

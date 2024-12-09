@@ -23,12 +23,14 @@ func CreateItems(rawDirectories string) []list.Item {
 	var items []list.Item
 
 	for _, directory := range directories {
+		directory = strings.TrimSpace(directory)
+
 		// If empty -> don't create Item
-		if directory == "" || directory == " " {
+		if directory == "" {
 			continue
 		}
 
-		item := entities.Item{Title: directory}
+		item := entities.Item{TitleStr: directory}
 		items = append(items, item)
 	}
 
